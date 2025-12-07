@@ -14,10 +14,7 @@ pipeline {
        stage('RUN SQL') {
          steps {
             sh '''
-               /usr/local/bin/mysql -u "$DB_LOGIN_USR" \
-                     -p"$DB_LOGIN_PSW" \ 
-                     -h "$DB_HOST" \
-                     < sql/check.sql
+               /usr/local/bin/mysql -u "$DB_LOGIN_USR" -p"$DB_LOGIN_PSW" -h "$DB_HOST" < sql/check.sql
             '''
          }
        }
