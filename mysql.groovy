@@ -5,15 +5,19 @@ pipeline {
         DB_LOGIN = credentials('db-login')
         DB_HOST = credentials('db-host')
     }
-    
     stages {
+       stage('Checkout') {
+         steps {
+                 git branch: 'main', url: 'https://github.com/venkytn/db-automation.git'
+               }
+         }
        stage('RUN SQL') {
          steps {
             sh '''
-               /usr/local/bin/mysql/mysql -u "$DB_LOGIN_USR" \
+               /usr/local/bin/mysql -u "$DB_LOGIN_USR" \
                      -p"$DB_LOGIN_PSW" \ 
                      -h "$DB_HOST" \
-                     -e "select 1;"
+                     < sql/check.sql
             '''
          }
        }
